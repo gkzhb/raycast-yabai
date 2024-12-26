@@ -3,8 +3,8 @@
 import { useMemo, useState } from "react";
 import { Action, ActionPanel, List, useNavigation } from "@raycast/api";
 import { useExec } from "@raycast/utils";
+import { yabai } from "./constants";
 
-const yabai = "/opt/homebrew/bin/yabai";
 export default function WindowList() {
   const [windowId, setWindowId] = useState(null);
   const { pop } = useNavigation();

@@ -15,6 +15,12 @@
       "title": "Search and focus window",
       "description": "",
       "mode": "view"
+    },
+    {
+      "name": "rename-space",
+      "title": "Rename space",
+      "description": "",
+      "mode": "view"
     }
   ],
   "dependencies": {
