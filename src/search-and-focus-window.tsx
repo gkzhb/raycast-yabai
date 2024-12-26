@@ -1,13 +1,13 @@
 /* eslint-disable no-empty */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useMemo, useState } from "react";
-import { Action, ActionPanel, Icon, Keyboard, List } from "@raycast/api";
+import { Action, ActionPanel, List, useNavigation } from "@raycast/api";
 import { useExec } from "@raycast/utils";
 
 const yabai = "/opt/homebrew/bin/yabai";
 export default function WindowList() {
   const [windowId, setWindowId] = useState(null);
+  const { pop } = useNavigation();
   const { isLoading, data } = useExec(yabai, ["-m", "query", "--windows"], {
     env: { USER: "bytedance" },
   });
@@ -34,15 +34,14 @@ export default function WindowList() {
           key={item.id}
           title={`${item.space} | ${item.app} | ${item.title || "-"}`}
           id={String(item.id)}
-          accessories={[{ tag: item.id ?? "-", text: item.id }]}
           actions={
             <ActionPanel>
               <Action
                 title="Focus window"
                 shortcut={{ key: "enter", modifiers: ["ctrl"] }}
                 onAction={() => {
-                  console.log("trigger", item.id);
                   setWindowId(item.id);
+                  pop();
                 }}
               />
             </ActionPanel>
