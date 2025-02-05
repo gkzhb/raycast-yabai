@@ -17,6 +17,12 @@
       "mode": "view"
     },
     {
+      "name": "search-and-focus-space",
+      "title": "Search and focus space",
+      "description": "",
+      "mode": "view"
+    },
+    {
       "name": "rename-space",
       "title": "Rename space",
       "description": "",
