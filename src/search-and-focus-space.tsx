@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { Action, ActionPanel, Color, List, useNavigation } from "@raycast/api";
 import { useExec } from "@raycast/utils";
-import { yabai } from "./constants";
+import { defaultEnv, yabai } from "./constants";
 
 // order labeled spaces and spaces that contains windows to the front
 const getSortOrder = (item: any) => (item.label || item.windows.length ? 1 : 0);
@@ -12,11 +12,11 @@ export default function SpaceList() {
   const [windowId, setWindowId] = useState(null);
   const { pop } = useNavigation();
   const { isLoading, data } = useExec(yabai, ["-m", "query", "--spaces"], {
-    env: { USER: "bytedance" },
+    env: defaultEnv,
   });
 
   useExec(yabai, windowId ? ["-m", "window", "--focus", windowId] : ["-v"], {
-    env: { USER: "bytedance" },
+    env: defaultEnv,
   });
 
   const spaces = useMemo(() => {

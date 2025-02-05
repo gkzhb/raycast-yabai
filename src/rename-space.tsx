@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Action, ActionPanel, List, useNavigation } from "@raycast/api";
 import { useExec } from "@raycast/utils";
-import { yabai } from "./constants";
+import { defaultEnv, yabai } from "./constants";
 
 export default function RenameSpace() {
   const [input, setInput] = useState("");
@@ -9,16 +9,18 @@ export default function RenameSpace() {
   const { pop } = useNavigation();
 
   useExec(yabai, rename ? ["-m", "space", "--label", rename.name] : ["-v"], {
-    env: { USER: "bytedance" },
+    env: defaultEnv,
   });
 
   return (
     <List
+      searchBarPlaceholder="Rename yabai space label"
       onSearchTextChange={(text) => setInput(text)}
       actions={
         <ActionPanel>
           <Action
-            title={"Rename"}
+            title={"Rename space"}
+            shortcut={{ key: "enter", modifiers: ["ctrl"] }}
             onAction={() => {
               setRename({ name: input });
               pop();
