@@ -32,8 +32,10 @@ export default function WindowList() {
       {windows?.map((item) => (
         <List.Item
           key={item.id}
-          title={`${item.space} | ${item.app} | ${item.title || "-"}`}
+          title={`${item.app} | ${item.title || "-"}`}
+          keywords={[String(item.space)]}
           id={String(item.id)}
+          accessories={[{ text: String(item.space) }]}
           actions={
             <ActionPanel>
               <Action
