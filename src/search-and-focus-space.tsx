@@ -38,11 +38,9 @@ export default function SpaceList() {
       {spaces?.map((item) => (
         <List.Item
           key={item.id}
-          title={`${item.label || "-"}`}
-          keywords={[String(item.index), item.label]}
+          title={`${item.index}:\t${item.label || "-"}`}
           id={String(item.id)}
           accessories={[
-            { text: String(item.index) },
             {
               text: {
                 value: `${item.windows.length} windows`,
