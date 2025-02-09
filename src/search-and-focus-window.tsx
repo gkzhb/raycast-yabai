@@ -8,11 +8,11 @@ import { defaultEnv, yabai } from "./constants";
 export default function WindowList() {
   const [windowId, setWindowId] = useState(null);
   const { pop } = useNavigation();
-  const { isLoading, data } = useExec(yabai, ["-m", "query", "--windows"], {
+  const { isLoading, data } = useExec(yabai(), ["-m", "query", "--windows"], {
     env: defaultEnv,
   });
 
-  useExec(yabai, windowId ? ["-m", "window", "--focus", windowId] : ["-v"], {
+  useExec(yabai(), windowId ? ["-m", "window", "--focus", windowId] : ["-v"], {
     env: defaultEnv,
   });
 

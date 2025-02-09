@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { Action, ActionPanel, List, showHUD } from "@raycast/api";
-import { useExec } from "@raycast/utils";
+import { runAppleScript, useExec } from "@raycast/utils";
 import { defaultEnv, yabai } from "./constants";
 
 const savedLabelPath = `/Users/${defaultEnv.USER}/.yabai-labels.json`;
@@ -17,11 +17,12 @@ export default function RenameSpace() {
   const [savedJson, setSavedJson] = useState("");
 
   // rename space label
-  useExec(yabai, ["-m", "space", "--label", rename?.name ?? ""], {
+  useExec(yabai(), ["-m", "space", "--label", rename?.name ?? ""], {
     env: defaultEnv,
     execute: Boolean(rename),
     onData: () => {
       setSaveLabels(true);
+      runAppleScript(`do shell script "open -gj 'swiftbar://refreshplugin?name=yabai'"`);
     },
     onError: () => {
       showHUD("Rename yabai space's label error");
@@ -33,7 +34,7 @@ export default function RenameSpace() {
     data: spacesJson,
     error,
     isLoading,
-  } = useExec(yabai, ["-m", "query", "--spaces"], {
+  } = useExec(yabai(), ["-m", "query", "--spaces"], {
     env: defaultEnv,
     execute: saveLabels,
     onError: () => {

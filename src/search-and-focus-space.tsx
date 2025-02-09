@@ -11,11 +11,11 @@ const getSortOrder = (item: any) => (item.label || item.windows.length ? 1 : 0);
 export default function SpaceList() {
   const [windowId, setWindowId] = useState(null);
   const { pop } = useNavigation();
-  const { isLoading, data } = useExec(yabai, ["-m", "query", "--spaces"], {
+  const { isLoading, data } = useExec(yabai(), ["-m", "query", "--spaces"], {
     env: defaultEnv,
   });
 
-  useExec(yabai, windowId ? ["-m", "window", "--focus", windowId] : ["-v"], {
+  useExec(yabai(), windowId ? ["-m", "window", "--focus", windowId] : ["-v"], {
     env: defaultEnv,
   });
 
