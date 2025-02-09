@@ -24,9 +24,18 @@
     },
     {
       "name": "rename-space",
-      "title": "Rename space",
-      "description": "",
-      "mode": "view"
+      "title": "Rename yabai space label",
+      "description": "Rename current focused yabai sapce label",
+      "mode": "view",
+      "preferences": [
+        {
+          "name": "renameSpacePostScript",
+          "title": "AppleScript text file path to run after renaming space label",
+          "description": "AppleScript path",
+          "type": "file",
+          "required": false
+        }
+      ]
     }
   ],
   "dependencies": {

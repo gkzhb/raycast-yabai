@@ -1,7 +1,8 @@
 /* eslint-disable no-empty */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import fs from "fs";
 import { useEffect, useState } from "react";
-import { Action, ActionPanel, List, showHUD } from "@raycast/api";
+import { Action, ActionPanel, List, getPreferenceValues, showHUD } from "@raycast/api";
 import { runAppleScript, useExec } from "@raycast/utils";
 import { defaultEnv, yabai } from "./constants";
 
@@ -20,9 +21,14 @@ export default function RenameSpace() {
   useExec(yabai(), ["-m", "space", "--label", rename?.name ?? ""], {
     env: defaultEnv,
     execute: Boolean(rename),
-    onData: () => {
+    onData: async () => {
       setSaveLabels(true);
-      runAppleScript(`do shell script "open -gj 'swiftbar://refreshplugin?name=yabai'"`);
+      const script = getPreferenceValues().renameSpacePostScript;
+      if (!script) {
+        return;
+      }
+      const content = await fs.promises.readFile(script, "utf-8");
+      runAppleScript(content);
     },
     onError: () => {
       showHUD("Rename yabai space's label error");
